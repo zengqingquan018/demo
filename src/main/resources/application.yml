@@ -1,4 +1,13 @@
 server:
-  port: 80
+  port: 8080
   servlet:
     context-path: /demo
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.learn.demo.mapper
+
+
+spring:
+  profiles:
+    active: dev
