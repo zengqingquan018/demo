@@ -11,3 +11,5 @@ mybatis:
 spring:
   profiles:
     active: dev
+
+excludeUrl: /**/*.js,/**/*.css,/**/*.html

@@ -10,6 +10,13 @@ public class DemoController {
 
     @Autowired
     private DemoService demoService;
+    /**
+     * 项目搭建测试
+     * @author ZQQ
+     * @date 2020/1/5
+      * @param  
+     * @return java.lang.String
+     */
     @GetMapping("/test")
     public String test() {
         return  demoService.test();

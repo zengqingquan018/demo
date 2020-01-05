@@ -17,9 +17,15 @@ public class DemoServiceImpl implements DemoService {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    /**
+     * 数据连接和redis测试
+     * @author ZQQ
+     * @date 2020/1/5
+      * @param
+     * @return java.lang.String
+     */
     @Override
     public String test() {
-
         String result = demoMapper.test();
         logger.info("=========" + result);
         redisTemplate.opsForValue().set("test","test");
