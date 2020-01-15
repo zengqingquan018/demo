@@ -16,6 +16,6 @@ mybatis:
 
 spring:
   profiles:
-    active: dev
+    active: true
 
 excludeUrl: /**/*.js,/**/*.css,/**/*.html,/demo/user/login
