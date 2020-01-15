@@ -4,8 +4,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-/src/main/resource/application-false.yml
-/src/main/resource/application-true.yml
+/src/main/resources/application-false.yml
+/src/main/resources/application-true.yml
 
 ### STS ###
 .apt_generated
