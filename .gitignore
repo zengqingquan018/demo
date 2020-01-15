@@ -1,6 +1,8 @@
 HELP.md
 .gradle
 build/
+application-false.yml
+application-true.yml
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**

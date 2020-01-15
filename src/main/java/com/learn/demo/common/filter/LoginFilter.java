@@ -1,11 +1,11 @@
 package com.learn.demo.common.filter;
 
 import com.alibaba.fastjson.JSONObject;
+import com.learn.demo.common.enums.ResultCode;
 import com.learn.demo.common.response.ResponseResult;
 import com.learn.demo.common.utils.UriUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
@@ -38,9 +38,10 @@ public class LoginFilter implements Filter {
         String uri = httpServletRequest.getRequestURI();
         if (UriUtils.isInclude(uri, excludeUrls)) {
             chain.doFilter(httpServletRequest, httpServletResponse);
+            return;
         }
         if (StringUtils.isEmpty(userName)) {
-            ResponseResult<String> responseResult = new ResponseResult<>("20000", "用户未登陆", null);
+            ResponseResult<String> responseResult = new ResponseResult<>(ResultCode.FAIL_CODE, "用户未登陆", null);
             String resultJson = JSONObject.toJSONString(responseResult);
             httpServletResponse.setContentType(MEDIA_TYPE);
             httpServletResponse.getWriter().write(resultJson);
