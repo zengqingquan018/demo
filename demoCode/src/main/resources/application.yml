@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /demo
+    session:
+      cookie:
+        path: /
+        http-only: false
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.example.demo.mapper
+
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: demo
+
+excludeUrl: /**/*.js,/**/*.css,/**/*.html,/demo/user/login,/demo/user/test
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://127.0.0.1:8081/eureka/

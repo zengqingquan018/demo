@@ -1,0 +1,43 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java'
+}
+
+
+group = 'com.gradle'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 8
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    set('springCloudVersion', "Greenwich.RELEASE")
+}
+repositories {
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+test {
+    useJUnitPlatform()
+}

@@ -1,28 +1,60 @@
-plugins {
-    id 'org.springframework.boot' version '2.2.0.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'java'
+group 'org.gradle'
+version '1.0-SNAPSHOT'
+
+//声明gradle脚本自身需要使用的资源,优先执行
+buildscript {
+    ext {
+        springBootVersion = '2.1.12.RELEASE'
+        springCloudVersion = 'Greenwich.RELEASE'
+    }
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+apply plugin: "io.spring.dependency-management"
+
+//所有项目共享的配置
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java-library'
+    version = '1.0'
+    //jdk版本
+    sourceCompatibility = 8
+    targetCompatibility = 8
 }
 
-group = 'com.learn'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+//根项目上采用配置注入的方式定义一些公共配置。根项目就像一个容器，子项目会迭代访问它的配置并注入到自己的配置中。
+//所有子模块共享的配置
+subprojects {
+    version = '1.0'
+    //声明java插件
+    //Gradle默认会从src/main/java 搜寻打包源码，在src/test/java下搜寻测试源码。
+    //并且src/main/resources下的所有文件按都会被打包，所有src/test/resources下的文件都会被添加到类路径用以执行测试。
+    //所有文件都输出到build下，打包的文件输出到build/libs下。
+    apply plugin: 'java'
+    //使用springboot插件
+    apply plugin: 'org.springframework.boot'
+    //java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+    //配置所有子模块的依赖仓库地址
+    repositories {
+        mavenCentral()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+    }
+}
+//编译时控制台乱码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
-repositories {
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-    mavenCentral()
-}
-dependencies {
-    implementation('org.springframework.boot:spring-boot-starter')
-    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1')
-    compile('mysql:mysql-connector-java')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile group: 'org.mybatis.generator', name: 'mybatis-generator-core', version: '1.3.6'
-    compile('org.springframework.boot:spring-boot-starter-data-redis')
-    compile('com.alibaba:fastjson:1.2.62')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-}
-
-test {
-    useJUnitPlatform()
-}
