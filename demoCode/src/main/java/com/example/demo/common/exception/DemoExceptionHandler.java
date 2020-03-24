@@ -33,10 +33,10 @@ public class DemoExceptionHandler {
     @ResponseBody
     public ResponseResult result(Exception e, HttpServletRequest request, HttpServletResponse response) {
         if (e instanceof DemoException) {
-            logger.info("自定义异常");
+            logger.info("自定义异常:{}",e);
             return new ResponseResult(((DemoException) e).getCode(), e.getMessage(), null);
         } else {
-            logger.info("其他异常");
+            logger.info("其他异常:{}",e);
             return new ResponseResult(ResultCode.FAIL_CODE, e.getMessage(), null);
         }
     }

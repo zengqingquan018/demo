@@ -4,7 +4,6 @@ eureka:
   instance:
     hostname: 127.0.0.1
   client:
-
     register-with-eureka: false
     fetch-registry: false
     service-url:

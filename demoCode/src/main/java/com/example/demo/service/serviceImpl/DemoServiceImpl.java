@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Service
 public class DemoServiceImpl implements DemoService {
@@ -27,16 +28,17 @@ public class DemoServiceImpl implements DemoService {
 
     /**
      * 数据连接和redis测试
+     *
+     * @param
+     * @return java.lang.String
      * @author ZQQ
      * @date 2020/1/5
-      * @param
-     * @return java.lang.String
      */
     @Override
-    public String test() {
-        String result = demoMapper.test();
+    public List<String> test() {
+        List<String> result = demoMapper.test();
         logger.info("=========" + result);
-        redisTemplate.opsForValue().set("test","test");
+        redisTemplate.opsForValue().set("test", "test");
         return result;
     }
 
@@ -50,7 +52,7 @@ public class DemoServiceImpl implements DemoService {
         }
         //session重置
         request.getSession().invalidate();
-        request.getSession().setAttribute("userName",userDao.getUsername());
+        request.getSession().setAttribute("userName", userDao.getUsername());
         return new ResponseResult<>(ResultCode.SUCCESS_CODE, ResultEnum.LOGIN_SUCCESS.getMsg(), null);
     }
 }

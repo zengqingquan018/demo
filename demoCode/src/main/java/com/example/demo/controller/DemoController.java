@@ -1,13 +1,17 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.common.config.ContextConfig;
 import com.example.demo.common.dao.UserDao;
+import com.example.demo.common.enums.ResultCode;
+import com.example.demo.common.enums.ResultEnum;
 import com.example.demo.common.response.ResponseResult;
 import com.example.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user/")
@@ -15,8 +19,8 @@ public class DemoController {
 
     @Autowired
     private DemoService demoService;
-
-
+    @Autowired
+    private ContextConfig contextConfig;
 
 
     /**
@@ -28,10 +32,9 @@ public class DemoController {
      * @date 2020/1/5
      */
     @GetMapping("/test")
-    public String test() {
-
-
-        return demoService.test();
+    public ResponseResult<List<String>> test() {
+        contextConfig.getApplicationContext();
+        return new ResponseResult<>(ResultCode.SUCCESS_CODE, "success", demoService.test());
     }
 
     /**
