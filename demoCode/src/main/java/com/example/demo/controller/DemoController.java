@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.common.aop.Operation;
 import com.example.demo.common.config.ContextConfig;
 import com.example.demo.common.dao.UserDao;
 import com.example.demo.common.enums.ResultCode;
@@ -35,6 +36,13 @@ public class DemoController {
     public ResponseResult<List<String>> test() {
         contextConfig.getApplicationContext();
         return new ResponseResult<>(ResultCode.SUCCESS_CODE, "success", demoService.test());
+    }
+
+
+    @Operation(value = "TEST")
+    @GetMapping("/getContext")
+    public void getContext() {
+        demoService.getContext();
     }
 
     /**

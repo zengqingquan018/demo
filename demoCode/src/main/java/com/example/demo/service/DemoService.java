@@ -10,4 +10,6 @@ public interface DemoService {
     List<String> test();
 
     ResponseResult<String> login(UserDao userDao, HttpServletRequest request);
+
+     void getContext();
 }

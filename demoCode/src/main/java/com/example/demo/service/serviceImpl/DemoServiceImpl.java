@@ -11,6 +11,7 @@ import com.example.demo.service.DemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -25,6 +26,9 @@ public class DemoServiceImpl implements DemoService {
     private DemoMapper demoMapper;
     @Autowired
     private StringRedisTemplate redisTemplate;
+    @Autowired
+    private ApplicationContext applicationContext;
+
 
     /**
      * 数据连接和redis测试
@@ -54,5 +58,13 @@ public class DemoServiceImpl implements DemoService {
         request.getSession().invalidate();
         request.getSession().setAttribute("userName", userDao.getUsername());
         return new ResponseResult<>(ResultCode.SUCCESS_CODE, ResultEnum.LOGIN_SUCCESS.getMsg(), null);
+    }
+
+    @Override
+    public void getContext() {
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        for (int i = 1; i < beanNames.length; i++) {
+            logger.info("{}:beanName:{}", i + 1, beanNames[i]);
+        }
     }
 }
