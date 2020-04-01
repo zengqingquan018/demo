@@ -47,6 +47,12 @@ public class DemoServiceImpl implements DemoService {
     }
 
     @Override
+    public void insertDate() {
+        demoMapper.test1();
+        demoMapper.test2();
+    }
+
+    @Override
     public ResponseResult<String> login(UserDao userDao, HttpServletRequest request) {
         if (StringUtils.isEmpty(userDao.getUsername()) || StringUtils.isEmpty(userDao.getPassword())) {
             return new ResponseResult<>(ResultCode.FAIL_CODE, "用户名密码为空", null);

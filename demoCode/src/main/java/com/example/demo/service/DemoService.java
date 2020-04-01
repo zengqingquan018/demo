@@ -11,5 +11,7 @@ public interface DemoService {
 
     ResponseResult<String> login(UserDao userDao, HttpServletRequest request);
 
-     void getContext();
+    void getContext();
+
+    void insertDate();
 }

@@ -45,6 +45,14 @@ public class DemoController {
         demoService.getContext();
     }
 
+
+    @GetMapping("/testTransaction")
+    public ResponseResult<String> testTransaction() {
+        demoService.insertDate();
+        return new ResponseResult<>("10000", "success", null);
+
+    }
+
     /**
      * 登陆
      *

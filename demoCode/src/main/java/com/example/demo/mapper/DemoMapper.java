@@ -12,4 +12,10 @@ public interface DemoMapper {
      * @date 2020/1/5
      */
     List<String> test();
+
+
+    void test1();
+
+    void test2();
+
 }

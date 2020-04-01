@@ -5,4 +5,12 @@
 select test
 from test
 </select>
+
+    <insert id="test1">
+insert into test(test) values ("test11111")
+</insert>
+    <insert id="test2">
+insert into test(test1) values ("test11111")
+</insert>
+
 </mapper>
