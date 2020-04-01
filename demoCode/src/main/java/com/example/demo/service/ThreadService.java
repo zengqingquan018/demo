@@ -6,5 +6,9 @@ package com.example.demo.service;
  */
 public interface ThreadService {
 
-    void myThreadTest();
+    void testThread();
+
+    void testLock();
+
+    void testThreadLocal();
 }

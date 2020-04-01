@@ -1,12 +1,12 @@
 package com.example.demo.service.serviceImpl;
 
-import com.example.demo.common.thread.MyThread;
-import com.example.demo.common.thread.MyThread1;
+import com.example.demo.common.test.TestClass;
+import com.example.demo.common.test.TestClass1;
+import com.example.demo.common.thread.*;
 import com.example.demo.service.ThreadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Executable;
 import java.util.concurrent.*;
 
 /**
@@ -17,7 +17,7 @@ public class ThreadServiceImpl implements ThreadService {
     private Logger logger = LoggerFactory.getLogger(ThreadServiceImpl.class);
 
     @Override
-    public void myThreadTest() {
+    public void testThread() {
         //线程
         Thread thread1 = new Thread(new MyThread(1));
         Thread thread2 = new Thread(new MyThread1(2));
@@ -29,7 +29,7 @@ public class ThreadServiceImpl implements ThreadService {
         //可缓存线程池,第一个任务执行完毕后，第二个任务可以直接使用第一个任务的线程,线程池无限大
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
         for (int i = 0; i < 5; i++) {
-     //确认前一个线程执行完毕
+            //确认前一个线程执行完毕
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -58,11 +58,37 @@ public class ThreadServiceImpl implements ThreadService {
         logger.info("time:{}", System.currentTimeMillis());
         scheduledThreadPool.schedule(thread1, 5, TimeUnit.SECONDS);
 
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
+    }
+
+    //验证synchronize
+    @Override
+    public void testLock() {
+        TestClass testClass = new TestClass();
+        TestClass1 testClass1 = new TestClass1();
+        MyThread2 myThread2 = new MyThread2(testClass);
+        MyThread2 myThread21 = new MyThread2(testClass);
+        MyThread3 myThread3 = new MyThread3(testClass1);
+        MyThread3 myThread31 = new MyThread3(testClass1);
+        myThread2.start();
+        myThread21.start();
+        myThread3.start();
+        myThread31.start();
+    }
+
+
+    public void testThreadLocal() {
+        MyThread4 myThread4 = new MyThread4();
+        MyThread4 myThread41 = new MyThread4();
+        MyThread4 myThread42 = new MyThread4();
+        myThread4.start();
+        myThread41.start();
+        myThread42.start();
     }
 
     public static void main(String[] args) {
         ThreadService threadService = new ThreadServiceImpl();
-        threadService.myThreadTest();
+        threadService.testThreadLocal();
     }
 }
