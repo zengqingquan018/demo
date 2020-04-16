@@ -17,6 +17,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URLDecoder;
 
 /**
@@ -42,7 +43,7 @@ public class FileController {
             res.setContentType("multipart/form-data");
             res.setCharacterEncoding("UTF-8");
             res.setContentType("text/html");
-            String filePath = this.getClass().getResource("/files/" + fileName).getPath();
+            String filePath = "/files/" + fileName;
             String userAgent = req.getHeader("User-Agent");
             if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
                 fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
@@ -51,7 +52,7 @@ public class FileController {
             }
             filePath = URLDecoder.decode(filePath, "UTF-8");
             res.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
-            FileInputStream inputStream = new FileInputStream(filePath);
+            InputStream inputStream = this.getClass().getResourceAsStream(filePath);
             out = res.getOutputStream();
             int b = 0;
             byte[] buffer = new byte[1024];
