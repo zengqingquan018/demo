@@ -19,7 +19,7 @@ spring:
   application:
     name: demo
 
-excludeUrl: /**/*.js,/**/*.css,/**/*.html,/demo/user/login,/demo/user/test
+excludeUrl: /**/*.js,/**/*.css,/**/*.html,/demo/user/login,/demo/user/test,/demo/file/downFile
 eureka:
   instance:
     prefer-ip-address: true
