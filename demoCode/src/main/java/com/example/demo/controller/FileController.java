@@ -4,6 +4,8 @@ import com.example.demo.common.exception.DemoException;
 import com.example.demo.common.utils.FileUtils;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -26,6 +28,8 @@ import java.net.URLDecoder;
 @RestController
 @RequestMapping("/file")
 public class FileController {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @GetMapping("/downFile")
     public void downloadExcel(HttpServletResponse res, HttpServletRequest req, String fileName) throws Exception {
@@ -61,6 +65,7 @@ public class FileController {
                 out.close();
             }
         } catch (Exception e) {
+            logger.error("下载出错:{}", e);
             throw new DemoException("下载失败");
         }
     }
