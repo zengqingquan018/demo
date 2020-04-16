@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @Author ZQQ
  * @Date 2020/2/14 15:55
  */
-public class StringUtils {
+public class DemoStringUtils {
 
     public static List<String> getImgStr(String htmlStr) {
         List<String> list = new ArrayList<>();
