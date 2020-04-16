@@ -34,7 +34,7 @@ public class ExcelUtils {
      * @param inputStream
      * @return {@link List< String[]>}
      * @throws
-     * @author zengqingquan
+     * @author zqq
      * @date 2020/4/16 10:48
      */
     public static List<String[]> getExcelData(InputStream inputStream) throws IOException, InvalidFormatException {
