@@ -42,7 +42,7 @@ public class FileController {
             res.setContentType("multipart/form-data");
             res.setCharacterEncoding("UTF-8");
             res.setContentType("text/html");
-            String filePath = getClass().getResource("/files/" + fileName).getPath();
+            String filePath = this.getClass().getResource("/files/" + fileName).getPath();
             String userAgent = req.getHeader("User-Agent");
             if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
                 fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
@@ -59,7 +59,6 @@ public class FileController {
                 out.write(buffer, 0, b);
             }
             inputStream.close();
-
             if (out != null) {
                 out.flush();
                 out.close();
