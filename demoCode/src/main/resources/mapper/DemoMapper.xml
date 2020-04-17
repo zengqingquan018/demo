@@ -5,7 +5,6 @@
 select test
 from test
 </select>
-
     <insert id="test1">
 insert into test(test) values ("test11111")
 </insert>

@@ -34,7 +34,6 @@ public class DemoController {
      */
     @GetMapping("/test")
     public ResponseResult<List<String>> test() {
-        contextConfig.getApplicationContext();
         return new ResponseResult<>(ResultCode.SUCCESS_CODE, "success", demoService.test());
     }
 
