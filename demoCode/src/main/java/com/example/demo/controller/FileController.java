@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * 描述：
@@ -46,7 +47,7 @@ public class FileController {
             String filePath = "/files/" + fileName;
             String userAgent = req.getHeader("User-Agent");
             if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
-                fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+                fileName = URLEncoder.encode(fileName, "UTF-8");
             } else {
                 fileName = new String((fileName).getBytes("UTF-8"), "ISO-8859-1");
             }

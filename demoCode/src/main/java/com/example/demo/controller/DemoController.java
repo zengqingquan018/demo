@@ -55,13 +55,16 @@ public class DemoController {
     /**
      * 登陆
      *
-     * @param userDao
+     * @param
      * @return com.learn.demo.common.response.ResponseResult<java.lang.String>
      * @author ZQQ
      * @date 2020/1/5
      */
-    @PostMapping("/login")
-    public ResponseResult<String> login(@RequestBody UserDao userDao, HttpServletRequest request) {
+    @GetMapping("/login")
+    public ResponseResult<String> login(HttpServletRequest request) {
+        UserDao userDao = new UserDao();
+        userDao.setUsername(request.getParameter("username"));
+        userDao.setPassword(request.getParameter("password"));
         return demoService.login(userDao, request);
     }
 }
