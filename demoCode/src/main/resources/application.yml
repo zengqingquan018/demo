@@ -41,7 +41,7 @@ eureka:
         service-url:
             defaultZone: http://127.0.0.1:8081/eureka/
 logging:
-    path: /java/demo/log/app.log
+    path: /java/demo/log
     level:
         root: info
 
