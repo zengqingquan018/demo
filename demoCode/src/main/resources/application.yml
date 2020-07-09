@@ -1,42 +1,47 @@
 server:
-  port: 8080
-  servlet:
-    context-path: /demo
-    session:
-      cookie:
-        path: /
-        http-only: false
+    port: 8080
+    servlet:
+        context-path: /demo
+        session:
+            cookie:
+                path: /
+                http-only: false
 
 mybatis-plus:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.demo.mapper
-  global-config:
-    db-config:
-      id-type: auto
-      field-strategy: not_empty
-      #驼峰下划线转换
-      column-underline: true
-      #逻辑删除配置
-      logic-delete-value: 0
-      logic-not-delete-value: 1
-      db-type: mysql
-    refresh: false
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: false
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.example.demo.mapper
+    global-config:
+        db-config:
+            id-type: auto
+            field-strategy: not_empty
+            #驼峰下划线转换
+            column-underline: true
+            #逻辑删除配置
+            logic-delete-value: 0
+            logic-not-delete-value: 1
+            db-type: mysql
+        refresh: false
+    configuration:
+        map-underscore-to-camel-case: true
+        cache-enabled: false
 
 
 spring:
-  profiles:
-    active: dev
-  application:
-    name: demo
+    profiles:
+        active: dev
+    application:
+        name: demo
 
 excludeUrl: /**/*.js,/**/*.css,/**/*.html,/demo/user/login,/demo/user/test,/demo/file/downFile,/demo/mybatisPlus/**
 eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetchRegistry: false
-    service-url:
-      defaultZone: http://127.0.0.1:8081/eureka/
+    instance:
+        prefer-ip-address: true
+    client:
+        fetchRegistry: false
+        service-url:
+            defaultZone: http://127.0.0.1:8081/eureka/
+logging:
+    path: /java/demo/log/app.log
+    level:
+        root: info
+
