@@ -40,7 +40,7 @@ dependencies {
     implementation('com.alibaba:fastjson:1.2.62')
     implementation('org.apache.poi:poi-excelant:4.1.0')
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+    //implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.1.12.RELEASE'
 
