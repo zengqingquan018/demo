@@ -1,8 +1,8 @@
 package com.example.demo.common.utils;
 
 
-import io.micrometer.core.instrument.util.StringUtils;
 
+import com.mysql.cj.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -101,7 +101,7 @@ public class DateUtils {
     }
 
     private static String normalize(String dateStr) {
-        if (StringUtils.isBlank(dateStr)) {
+        if (StringUtils.isNullOrEmpty(dateStr)) {
             return dateStr;
         } else {
             List<String> dateAndTime = new ArrayList<>(Arrays.asList(dateStr.split(" ")));
@@ -284,5 +284,8 @@ public class DateUtils {
             return null;
         }
     }
+
+
+
 
 }
