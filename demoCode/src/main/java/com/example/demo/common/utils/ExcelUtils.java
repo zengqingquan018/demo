@@ -16,6 +16,9 @@ import java.util.List;
  * @Date 2020/2/14 15:55
  */
 public class ExcelUtils {
+
+    private int a;
+
     /**
      * 描述:获取EXCEL的数据，入参为MultipartFile，出参为List<String []>，String[]为每一行的数据，空行跳过
      *
@@ -23,12 +26,11 @@ public class ExcelUtils {
      * @return {@link List< String[]>}
      * @throws
      * @author ZQQ
-     *
      */
-    public static List<String[]> getExcelData(MultipartFile file) throws IOException {
+    public static List<String[]> getExcelData(MultipartFile file, int maxRow) throws IOException {
         InputStream inputStream;
         inputStream = file.getInputStream();
-        return getExcelData(inputStream);
+        return getExcelData(inputStream, maxRow);
     }
 
 
@@ -40,28 +42,30 @@ public class ExcelUtils {
      * @return {@link List< String[]>}
      * @throws
      * @author ZQQ
-     *
      */
-    public static List<String[]> getExcelData(InputStream inputStream) throws IOException {
+    public static List<String[]> getExcelData(InputStream inputStream, int maxRow)
+            throws IOException {
 
         Workbook workbook = WorkbookFactory.create(inputStream);
         Sheet sheet = workbook.getSheetAt(0);
         //getPhysicalNumberOfRows是实际不为空的行数，如果中间有空行，造成最后行的数据无法获取
         // getLastRowNum从0开始的 所以实际上需要加1
         int rows = sheet.getLastRowNum() + 1;
+        if (rows > maxRow) {
+            //throw new DemoException("超过最大值");
+        }
+        // 获取最大列数
+        int cellNum = sheet.getRow(0).getLastCellNum();
         List<String[]> result = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
             Row row = sheet.getRow(i);
-            //这一行为空，则跳过
-            if (null == row) {
-                continue;
-            }
-            int cellNum = row.getLastCellNum();
             String[] cellBody = new String[cellNum];
-            for (int j = 0; j < cellNum; j++) {
-                Cell cell = row.getCell(j);
-                String cellValue = getCellValue(cell);
-                cellBody[j] = cellValue;
+            if (null != row) {
+                for (int j = 0; j < cellNum; j++) {
+                    Cell cell = row.getCell(j);
+                    String cellValue = getCellValue(cell);
+                    cellBody[j] = cellValue;
+                }
             }
             result.add(cellBody);
         }
@@ -75,10 +79,10 @@ public class ExcelUtils {
      * @return {@link String}
      * @throws
      * @author ZQQ
-     *
      */
     private static String getCellValue(Cell cell) {
         String cellValue = null;
+        // excel会将数字1读成1.0，因此数字需要判断时Long还是Double，1.0会直接读成String类型
         if (null != cell) {
             switch (cell.getCellType()) {
                 case NUMERIC: {
@@ -99,7 +103,7 @@ public class ExcelUtils {
                     cellValue = String.valueOf(cell.getBooleanCellValue());
                     break;
                 }
-                // 公式算出来的值
+                // 公式算出来的值,
                 case FORMULA: {
                     try {
                         Object cellValueObject = judgeLongOrDouble(cell.getNumericCellValue());
@@ -121,25 +125,27 @@ public class ExcelUtils {
 
 
     /**
-     * 描述:判断excel中数字的类型，excel中的1会被读成1.0，
+     * 描述:判断excel中数字的类型，excel中的1会被读成1.0，如果excel中本来就是1.0则会被认为是String
      *
      * @param value
      * @return {@link Object}
      * @throws
      * @author ZQQ
-     *
      */
     private static Object judgeLongOrDouble(Double value) {
         Object cellValueObject;
         Double doubleVal = value;
         long longVal = Math.round(doubleVal);
-        if (new BigDecimal(longVal).compareTo(new BigDecimal(doubleVal)) == 0) {
+        String longValStr = String.valueOf(longVal);
+        String doubleValStr = String.valueOf(doubleVal);
+        if (new BigDecimal(longValStr).compareTo(new BigDecimal(doubleValStr)) == 0) {
             cellValueObject = longVal;
         } else {
             cellValueObject = doubleVal;
         }
         return cellValueObject;
-
     }
+
+
 
 }
