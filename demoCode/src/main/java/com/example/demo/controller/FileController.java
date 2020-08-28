@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.common.exception.DemoException;
+import com.example.demo.common.utils.ExcelUtils;
 import com.example.demo.common.utils.FileUtils;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import java.io.IOException;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,16 +13,18 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 描述：
@@ -33,8 +38,16 @@ public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
+    @PostMapping("/importExcel")
+    public List<String[]> importExcel(MultipartFile file) throws IOException {
+        List<String[]> date = ExcelUtils.getExcelData(file, 2);
+        return date;
+    }
+
+
     @GetMapping("/downFile")
-    public void downloadExcel(HttpServletResponse res, HttpServletRequest req, String fileName) throws Exception {
+    public void downloadExcel(HttpServletResponse res, HttpServletRequest req, String fileName)
+            throws Exception {
 
         if (StringUtils.isEmpty(fileName)) {
             throw new DemoException("文件名为空");

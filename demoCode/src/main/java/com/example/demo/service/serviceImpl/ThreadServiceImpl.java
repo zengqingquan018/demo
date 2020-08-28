@@ -58,7 +58,7 @@ public class ThreadServiceImpl implements ThreadService {
         logger.info("time:{}", System.currentTimeMillis());
         scheduledThreadPool.schedule(thread1, 5, TimeUnit.SECONDS);
 
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+        ExecutorService executorService = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     }
 

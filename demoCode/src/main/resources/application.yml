@@ -32,7 +32,7 @@ spring:
     application:
         name: demo
 
-excludeUrl: /**/*.js,/**/*.css,/**/*.html,/demo/user/login,/demo/user/test,/demo/file/downFile,/demo/mybatisPlus/**
+excludeUrl: /**/*.js,/**/*.css,/**/*.html,/demo/user/login,/demo/user/test,/demo/file/**,/demo/mybatisPlus/**
 eureka:
     instance:
         prefer-ip-address: true

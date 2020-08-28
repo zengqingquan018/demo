@@ -17,8 +17,6 @@ import java.util.List;
  */
 public class ExcelUtils {
 
-    private int a;
-
     /**
      * 描述:获取EXCEL的数据，入参为MultipartFile，出参为List<String []>，String[]为每一行的数据，空行跳过
      *
